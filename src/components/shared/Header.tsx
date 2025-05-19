@@ -20,10 +20,10 @@ export const Header: React.FC<Props> = ({ className }) => {
                         <Image width={200} height={49} src="/logo.png" alt="logo" />
                     </Link>
 
-                    <Link href="/">Каталог</Link>
-                    <Link href="/">О нас</Link>
-                    <Link href="/">Избранное</Link>
-                    <Link href="/">Корзина</Link>
+                    <Link href="/catalog">Каталог</Link>
+                    <Link href="/about">О нас</Link>
+                    <Link href="/favorites">Избранное</Link>
+                    <Link href="/cart">Корзина</Link>
                 </div>
 
                 <SearchBar />
