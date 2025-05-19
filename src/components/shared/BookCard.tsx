@@ -3,22 +3,24 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Book } from "@/app/types";
 
-interface Book {
-  id: number;
-  title: string;
-  author: string;
-  price: string;
-  genre?: string;
-  image?: string;
-}
 
 export const BookCard: React.FC<{ book: Book }> = ({ book }) => {
   return (
     <Card className="max-w-sm">
-      <CardHeader>
-        <div className="h-48 bg-gray-400 rounded-md"></div>
-      </CardHeader>
+<CardHeader>
+  {book.image ? (
+    <img
+      src={book.image}
+      alt={book.title}
+      className="h-125 w-full object-cover rounded-md"
+    />
+  ) : (
+    <div className="h-48 bg-gray-400 rounded-md"></div>
+  )}
+</CardHeader>
+
       <CardContent>
         <div className="flex justify-between items-center">
           <CardTitle>{book.title}</CardTitle>

@@ -2,6 +2,9 @@
 import { BookCard } from "@/components/shared/BookCard";
 import { Header } from "@/components/shared/Header";
 import { Button } from "@/components/ui/button";
+import type { Book } from "@/app/types";
+
+
 
 const cartBooks = [
   { id: 1, title: "Название", author: "Автор", price: "$20" },
