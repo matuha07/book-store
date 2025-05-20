@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { BookCard } from "@/components/shared/BookCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { useStore } from "@/app/store"; // Zustand store
-import type { Book } from "@/app/types";
+import { useStore } from "@/app/store"; 
+import { Book } from "@/app/types";
 import {
   Select,
   SelectContent,
@@ -20,9 +20,25 @@ interface OLBook {
   author_name?: string[];
   cover_i?: number;
   subject?: string[];
+  description?: string | { value: string };
+  first_sentence?: string | string[] | { value: string };
 }
 
 function mapOpenLibraryBookToBook(doc: OLBook): Book {
+  // Извлекаем описание из поля description или first_sentence
+  let description = "Описание отсутствует";
+  if (typeof doc.description === "string") {
+    description = doc.description;
+  } else if (doc.description && "value" in doc.description) {
+    description = doc.description.value;
+  } else if (typeof doc.first_sentence === "string") {
+    description = doc.first_sentence;
+  } else if (Array.isArray(doc.first_sentence) && doc.first_sentence.length > 0) {
+    description = doc.first_sentence[0];
+  } else if (doc.first_sentence && "value" in doc.first_sentence) {
+    description = doc.first_sentence.value;
+  }
+
   return {
     id: doc.key.replace("/works/", ""),
     title: doc.title,
@@ -32,6 +48,7 @@ function mapOpenLibraryBookToBook(doc: OLBook): Book {
     image: doc.cover_i
       ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`
       : undefined,
+    description,
   };
 }
 
@@ -90,6 +107,26 @@ export default function OpenLibraryCatalog() {
 
   return (
     <div className="container mx-auto p-6">
+      <div className="max-w-xs mb-6">
+        <Select
+          value={genreFilter}
+          onValueChange={(value) =>
+            setGenreFilter(value === "all" ? "" : value)
+          }
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Выберите жанр" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">Все жанры</SelectItem>
+            {allGenres.map((genre) => (
+              <SelectItem key={genre} value={genre}>
+                {genre}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
 
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

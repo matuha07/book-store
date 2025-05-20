@@ -6,7 +6,6 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Book } from "@/app/types";
 
 export const BookCard: React.FC<{ book: Book }> = ({ book }) => {
-  // Ограничиваем авторов: показываем до 2, если больше — добавляем "..."
   const displayedAuthors = book.author
     ? book.author.split(", ").slice(0, 2).join(", ") + (book.author.split(", ").length > 2 ? ", ..." : "")
     : "Автор неизвестен";
