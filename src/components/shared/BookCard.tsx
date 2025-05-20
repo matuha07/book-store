@@ -1,13 +1,34 @@
+// src/components/shared/BookCard.tsx
 "use client";
+
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { Book } from "@/app/types";
+import {
+  Card, CardHeader, CardContent,
+  CardTitle, CardDescription, CardFooter,
+} from "@/components/ui/card";
+import type { Book } from "@/app/types";
+import { useFavoritesStore } from "@/app/stores/favorites";
 
-export const BookCard: React.FC<{ book: Book }> = ({ book }) => {
+interface BookCardProps {
+  book: Book;
+}
+
+export const BookCard: React.FC<BookCardProps> = ({ book }) => {
+  // читаем из стора:
+  const toggle = useFavoritesStore((s) => s.toggleFavorite);
+  const isFav = useFavoritesStore((s) =>
+    s.favorites.some((b) => b.id === book.id)
+  );
+
   const displayedAuthors = book.author
-    ? book.author.split(", ").slice(0, 2).join(", ") + (book.author.split(", ").length > 2 ? ", ..." : "")
+    ? book.author
+        .split(", ")
+        .slice(0, 2)
+        .join(", ") +
+      (book.author.split(", ").length > 2 ? ", ..." : "")
     : "Автор неизвестен";
 
   return (
@@ -32,23 +53,28 @@ export const BookCard: React.FC<{ book: Book }> = ({ book }) => {
           <p className="text-gray-900 font-semibold">{book.price}</p>
         </div>
         <CardDescription className="flex-1">{displayedAuthors}</CardDescription>
-        <p className="text-sm text-gray-500">{book.genre || "Жанр"}</p>
+        <p className="text-sm text-gray-500">{book.genre ?? "Жанр"}</p>
       </CardContent>
+
       <CardFooter className="flex justify-between items-center">
         <Link href={`/book/${book.id}`}>
           <Button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white">
             Подробнее
           </Button>
         </Link>
-        <Link href="/favorites">
+
+        <button
+          onClick={() => toggle(book)}
+          aria-label={isFav ? "Убрать из избранного" : "Добавить в избранное"}
+        >
           <Image
-            src="/heart.png"
+            src={isFav ? "/heart-filled.png" : "/heart.png"}
             alt="Избранное"
             width={24}
             height={24}
             className="cursor-pointer hover:scale-110 transition"
           />
-        </Link>
+        </button>
       </CardFooter>
     </Card>
   );

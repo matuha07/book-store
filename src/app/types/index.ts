@@ -1,3 +1,4 @@
+// src/app/types/index.ts
 export interface Book {
   id: string;
   title: string;
@@ -5,4 +6,5 @@ export interface Book {
   price: string;
   genre?: string;
   image?: string;
+  description?: string;
 }
