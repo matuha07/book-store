@@ -2,10 +2,10 @@
 import { BookCard } from "@/components/shared/BookCard";
 
 const favoriteBooks = [
-  { id: 1, title: "Название", author: "Автор", price: "$20" },
-  { id: 2, title: "Название", author: "Автор", price: "$20" },
-  { id: 3, title: "Название", author: "Автор", price: "$20" },
-  { id: 4, title: "Название", author: "Автор", price: "$20" },
+  { id: "1", title: "Название", author: "Автор", price: "$20" },
+  { id: "2", title: "Название", author: "Автор", price: "$20" },
+  { id: "3", title: "Название", author: "Автор", price: "$20" },
+  { id: "4", title: "Название", author: "Автор", price: "$20" },
 ];
 
 export default function FavoritesPage() {
