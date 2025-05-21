@@ -1,4 +1,4 @@
-// src/app/favorites/page.tsx
+
 "use client";
 import { BookCard } from "@/components/shared/BookCard";
 import { useFavoritesStore } from "../stores/favorites";

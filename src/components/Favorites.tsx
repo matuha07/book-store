@@ -1,4 +1,3 @@
-// src/app/favorites/page.tsx
 "use client";
 
 import React from "react";
@@ -6,7 +5,6 @@ import { BookCard } from "@/components/shared/BookCard";
 import { useFavoritesStore } from "@/app/stores/favorites";
 
 export default function FavoritesPage() {
-  // Получаем массив любимых книг из Zustand-стора
   const favorites = useFavoritesStore((state) => state.favorites);
 
   return (

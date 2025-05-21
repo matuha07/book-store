@@ -26,6 +26,7 @@ export const Header: React.FC<Props> = ({ className }) => {
                     <Link href="/about">О нас</Link>
                     <Link href="/favorites">Избранное</Link>
                     <Link href="/cart"> Корзина ({cartBooks.length})</Link>
+                    <Link href="/orders">Заказы</Link>
                 </div>
 
                 <SearchBar />

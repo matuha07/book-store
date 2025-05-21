@@ -6,11 +6,11 @@ import { useStore } from "@/app/store";
 
 export const SearchBar = () => {
   const [query, setQuery] = useState("");
-  const setSearchQuery = useStore((state) => state.setSearchQuery); // Zustand action для установки поискового запроса
+  const setSearchQuery = useStore((state) => state.setSearchQuery); 
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setSearchQuery(query); // Сохраняем поисковый запрос в Zustand
+    setSearchQuery(query); 
   };
 
   return (
@@ -43,7 +43,7 @@ export const SearchBar = () => {
           type="search"
           id="default-search"
           className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Search books..."
+          placeholder="Искать книги..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           required

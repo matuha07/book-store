@@ -25,7 +25,6 @@ interface OLBook {
 }
 
 function mapOpenLibraryBookToBook(doc: OLBook): Book {
-  // Извлекаем описание из поля description или first_sentence
   let description = "Описание отсутствует";
   if (typeof doc.description === "string") {
     description = doc.description;
@@ -58,7 +57,7 @@ export default function OpenLibraryCatalog() {
   const [page, setPage] = useState(1);
   const [genreFilter, setGenreFilter] = useState<string>("");
   const [allGenres, setAllGenres] = useState<string[]>([]);
-  const searchQuery = useStore((state) => state.searchQuery); // Получаем поисковый запрос из Zustand
+  const searchQuery = useStore((state) => state.searchQuery); 
 
   const pageSize = 10;
 
@@ -67,7 +66,7 @@ export default function OpenLibraryCatalog() {
       setLoading(true);
       let url = `https://openlibrary.org/search.json?page=${page}&limit=${pageSize}`;
       
-      // Если есть поисковый запрос, используем его, иначе фильтруем по жанру (comics)
+
       if (searchQuery) {
         url = `https://openlibrary.org/search.json?q=${encodeURIComponent(searchQuery)}&page=${page}&limit=${pageSize}`;
       } else {
@@ -103,30 +102,10 @@ export default function OpenLibraryCatalog() {
     }
 
     fetchBooks();
-  }, [page, genreFilter, searchQuery]); // Добавляем searchQuery в зависимости
+  }, [page, genreFilter, searchQuery]); 
 
   return (
     <div className="container mx-auto p-6">
-      <div className="max-w-xs mb-6">
-        <Select
-          value={genreFilter}
-          onValueChange={(value) =>
-            setGenreFilter(value === "all" ? "" : value)
-          }
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Выберите жанр" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Все жанры</SelectItem>
-            {allGenres.map((genre) => (
-              <SelectItem key={genre} value={genre}>
-                {genre}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
 
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
