@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Header } from "@/components/shared/Header";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Book } from "@/app/types";
+import { useCartStore } from "@/app/stores/cart";
+import { useFavoritesStore } from "@/app/stores/favorites";
 
 interface OLBook {
   key: string;
@@ -21,6 +23,14 @@ export default function BookPage() {
   const { bookId } = useParams();
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const addToCart    = useCartStore((s) => s.addToCart);
+  const cart         = useCartStore((s) => s.cart);
+  const favorites    = useFavoritesStore((s) => s.favorites);
+  const toggleFav    = useFavoritesStore((s) => s.toggleFavorite);
+
+  const inCart = !!book && cart.some((b) => b.id === book.id);
+  const isFav  = !!book && favorites.some((b) => b.id === book.id);
 
   useEffect(() => {
     async function fetchBook() {
@@ -155,16 +165,29 @@ export default function BookPage() {
             </div>
 
             <div className="mt-8 flex gap-4 items-center">
-              <Button className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white">
-                Добавить в корзину
-              </Button>
-              <Image
-                src="/heart.png"
-                alt="Избранное"
-                width={28}
-                height={28}
-                className="cursor-pointer hover:scale-110 transition"
-              />
+ <button
+  onClick={() => addToCart(book!)}
+  disabled={inCart}
+  className={`
+    mt-2 px-6 py-3 rounded-xl text-white font-medium shadow transition-colors duration-200 outline-none focus:ring-2 focus:ring-offset-2
+    ${inCart
+      ? "bg-green-500 hover:bg-green-600 focus:ring-green-500"
+      : "bg-blue-600 hover:bg-blue-700 focus:ring-blue-500"
+    }
+  `}
+>
+  {inCart ? "В корзине" : "В корзину"}
+</button>
+
+
+      <Image
+        src={isFav ? "/heart-filled.png" : "/heart.png"}
+        alt="Избранное"
+        width={24}
+        height={24}
+        onClick={() => toggleFav(book!)}
+        className="cursor-pointer"
+      />
             </div>
           </div>
         </div>
