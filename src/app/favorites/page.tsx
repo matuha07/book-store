@@ -9,7 +9,6 @@ export default function FavoritesPage() {
 
   return (
     <>
-    <Header/>
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">Избранное</h1>
       {favorites.length === 0 ? (

@@ -100,7 +100,6 @@ export default function BookPage() {
   if (loading) {
     return (
       <>
-        <Header />
         <div className="container mx-auto px-6 py-10">
           <div className="flex flex-col md:flex-row gap-10 items-start">
             <Skeleton className="w-full md:w-1/3 h-[400px] rounded-md" />
@@ -120,7 +119,6 @@ export default function BookPage() {
   if (!book) {
     return (
       <>
-        <Header />
         <div className="container mx-auto px-6 py-10">
           <p className="text-gray-600">Книга не найдена</p>
         </div>
@@ -130,7 +128,6 @@ export default function BookPage() {
 
   return (
     <>
-      <Header />
       <div className="container mx-auto px-6 py-10">
         <div className="flex flex-col md:flex-row gap-10 items-start">
           <div className="w-full md:w-1/3">

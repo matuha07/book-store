@@ -4,7 +4,6 @@ import { Header } from "@/components/shared/Header";
 export default function AboutPage() {
   return (
     <>
-      <Header />
       <main className="pt-20"> 
         <div className="container mx-auto px-6 py-10">
           <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">О компании BookBridge</h1>
