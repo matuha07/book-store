@@ -1,7 +1,10 @@
 # BookCart — Minimalist Book Store (Next.js + Zustand + shadcn/ui)
+An interactive, minimalist interface for searching books via the [OpenLibrary API]. Users can:
 
-A minimal e-commerce cart built with **Next.js 14**, **Zustand**, **shadcn/ui**, and **Tailwind CSS**.  
-Supports adding/removing books, persisting order history via `localStorage`, and a simple checkout form dialog.
+- Search books by title and author
+- Add books to "Favorites" and "Cart"
+- Place an order (fake - data is not sent anywhere)
+- View "order history" (stored in localStorage)
 
 ## Features
 - Cart management with Zustand
